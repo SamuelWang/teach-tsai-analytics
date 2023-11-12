@@ -6,7 +6,8 @@ import apiRouter from './routes/api';
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+const hostname = process.env.HOST ?? 'localhost';
+const port = Number.parseInt(process.env.PORT ?? '3000', 10);
 
 app.use((req, res, next) => {
   next(createError(404));
@@ -14,6 +15,6 @@ app.use((req, res, next) => {
 
 app.use('/api', apiRouter);
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+app.listen(port, hostname, () => {
+  console.log(`⚡️[server]: Server is running at http://${hostname}:${port}`);
 });
