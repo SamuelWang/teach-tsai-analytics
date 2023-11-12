@@ -1,1 +1,1 @@
-# teach-tsai-analytics
+# teacher-tsai-analytics
