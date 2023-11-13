@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from 'express';
 import createError from 'http-errors';
 import apiRouter from './routes/api';
 
@@ -9,7 +9,7 @@ const app: Express = express();
 const hostname = process.env.HOST ?? 'localhost';
 const port = Number.parseInt(process.env.PORT ?? '3000', 10);
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next) => {
   next(createError(404));
 });
 
