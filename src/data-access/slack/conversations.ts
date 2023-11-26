@@ -1,5 +1,6 @@
 import {
   ConversationsHistoryResponse,
+  ConversationsListResponse,
   ConversationsRepliesResponse,
 } from '@slack/web-api';
 import { get as getClient } from './client';
@@ -24,6 +25,24 @@ export async function history(
     return Promise.resolve({
       ok: false,
       messages: [],
+    });
+  }
+}
+
+export async function list(types?: string): Promise<ConversationsListResponse> {
+  const client = getClient();
+
+  try {
+    const result = await client.conversations.list({
+      types,
+    });
+
+    return result;
+  } catch (error) {
+    console.error(error);
+    return Promise.resolve({
+      ok: false,
+      channels: [],
     });
   }
 }
