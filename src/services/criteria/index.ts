@@ -1,1 +1,1 @@
-export * as CriteriaService from './get-today-utc-timestamp';
+export * from './get-today-utc-timestamp';
