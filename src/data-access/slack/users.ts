@@ -10,6 +10,6 @@ export async function list(): Promise<UsersListResponse> {
     return result;
   } catch (error) {
     console.error(error);
-    return Promise.resolve({ ok: false });
+    return Promise.resolve({ ok: false, members: [] });
   }
 }
