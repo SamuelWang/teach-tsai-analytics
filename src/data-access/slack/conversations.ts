@@ -48,7 +48,7 @@ export async function list(types?: string): Promise<ConversationsListResponse> {
 }
 
 export async function replies(
-  ts: number,
+  ts: string,
 ): Promise<ConversationsRepliesResponse> {
   const client = getClient();
   const channelId = process.env.CHANNEL_ID ?? '';
@@ -56,7 +56,7 @@ export async function replies(
   try {
     const result = await client.conversations.replies({
       channel: channelId,
-      ts: String(ts),
+      ts,
     });
 
     return result;
