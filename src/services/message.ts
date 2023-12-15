@@ -15,7 +15,7 @@ export async function getReplies(): Promise<Reply[]> {
   }
 
   const historyMessages = historyResult.messages.filter(
-    (m) => m.type === 'message',
+    (m) => m.type === 'message' && m.subtype !== 'channel_join',
   );
   const orderMessage = historyMessages.find(
     (m) => m.text?.includes('今日有訂餐'),
@@ -40,9 +40,19 @@ export async function getReplies(): Promise<Reply[]> {
   }
 
   return Promise.resolve([
-    ...mapMessagesToReplies(repliesResult.messages, usersResult.members),
-    ...mapMessagesToReplies(historyMessages, usersResult.members),
+    ...mapMessagesToReplies(
+      filterOutValidMessages(repliesResult.messages),
+      usersResult.members,
+    ),
+    ...mapMessagesToReplies(
+      filterOutValidMessages(historyMessages),
+      usersResult.members,
+    ),
   ]);
+}
+
+function filterOutValidMessages(messages: MessageElement[]) {
+  return messages.filter((m) => !m.text?.includes('今日有訂餐'));
 }
 
 function mapMessagesToReplies(
