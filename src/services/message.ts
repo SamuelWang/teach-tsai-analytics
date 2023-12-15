@@ -1,8 +1,8 @@
 import { MessageElement } from '@slack/web-api/dist/response/ConversationsHistoryResponse';
+import { Member } from '@slack/web-api/dist/response/UsersListResponse';
 import * as DataAccess from '../data-access';
 import { Reply } from '../models/message';
-import { getTodayUtcTimestamp } from './criteria';
-import { Member } from '@slack/web-api/dist/response/UsersListResponse';
+import { getTodayUtcTimestamp } from '../utils/criteria/timestamp.utils';
 
 export async function getReplies(): Promise<Reply[]> {
   const historyResult = await DataAccess.Slack.Conversations.history(
