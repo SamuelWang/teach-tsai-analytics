@@ -10,7 +10,7 @@ export async function history(
   end: number,
 ): Promise<ConversationsHistoryResponse> {
   const client = getClient();
-  const channelId = process.env.CHANNEL_ID ?? '';
+  const channelId = process.env.TEACHER_TSAI_CHANNEL_ID ?? '';
 
   try {
     const result = await client.conversations.history({
