@@ -12,7 +12,10 @@ export function generateContentFromMealGroups(
     return ['今日沒有任何訂餐'];
   }
 
-  const content: string[] = ['*今日訂餐統計：*'];
+  const now = new Date();
+  const content: string[] = [
+    `*今日（${now.getMonth() + 1}/${now.getDate()}）訂餐統計：*`,
+  ];
 
   mealGroups.sort((a, b) => a.mealNo - b.mealNo);
 
@@ -96,7 +99,7 @@ export async function getReplies(): Promise<Reply[]> {
     (m) => m.type === 'message' && m.subtype !== 'channel_join',
   );
   const orderMessage = historyMessages.find(
-    (m) => m.text?.includes('今日有訂餐'),
+    (m) => m.text?.includes('菜單樣式如下'),
   );
 
   if (!orderMessage || !orderMessage.ts) {
