@@ -22,10 +22,10 @@ export async function history(
     return result;
   } catch (error) {
     console.error(error);
-    return Promise.resolve({
+    return {
       ok: false,
       messages: [],
-    });
+    };
   }
 }
 
@@ -40,10 +40,10 @@ export async function list(types?: string): Promise<ConversationsListResponse> {
     return result;
   } catch (error) {
     console.error(error);
-    return Promise.resolve({
+    return {
       ok: false,
       channels: [],
-    });
+    };
   }
 }
 
@@ -51,7 +51,7 @@ export async function replies(
   ts: string,
 ): Promise<ConversationsRepliesResponse> {
   const client = getClient();
-  const channelId = process.env.CHANNEL_ID ?? '';
+  const channelId = process.env.TEACHER_TSAI_CHANNEL_ID ?? '';
 
   try {
     const result = await client.conversations.replies({
@@ -62,9 +62,9 @@ export async function replies(
     return result;
   } catch (error) {
     console.error(error);
-    return Promise.resolve({
+    return {
       ok: false,
       messages: [],
-    });
+    };
   }
 }

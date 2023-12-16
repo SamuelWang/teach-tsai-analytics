@@ -22,9 +22,9 @@ export async function postMessage(
     return result;
   } catch (error) {
     console.error(error);
-    return Promise.resolve({
+    return {
       ok: false,
       channel: channelId,
-    });
+    };
   }
 }
