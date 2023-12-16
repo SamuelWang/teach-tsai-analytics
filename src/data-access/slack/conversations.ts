@@ -48,10 +48,10 @@ export async function list(types?: string): Promise<ConversationsListResponse> {
 }
 
 export async function replies(
+  channelId: string,
   ts: string,
 ): Promise<ConversationsRepliesResponse> {
   const client = getClient();
-  const channelId = process.env.TEACHER_TSAI_CHANNEL_ID ?? '';
 
   try {
     const result = await client.conversations.replies({

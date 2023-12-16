@@ -2,13 +2,7 @@ import { RiceType } from '../enums';
 import { MealGroup } from '../models';
 import { Reply } from '../models/message';
 
-export async function analyseReplies(replies: Reply[]): Promise<MealGroup[]> {
-  // const replies = await getReplies();
-
-  // if (!replies.length) {
-  //   return Promise.resolve([]);
-  // }
-
+export function analyseReplies(replies: Reply[]): MealGroup[] {
   const mealGroups: MealGroup[] = [];
 
   replies.forEach((reply) => {
@@ -70,6 +64,26 @@ function analyseMealNo(message: string): number {
 
   if (matches && matches.length === 1) {
     return Number.parseInt(matches[0], 10);
+  }
+
+  if (message.includes('1）')) {
+    return 1;
+  }
+
+  if (message.includes('2）')) {
+    return 2;
+  }
+
+  if (message.includes('3）')) {
+    return 3;
+  }
+
+  if (message.includes('4）')) {
+    return 4;
+  }
+
+  if (message.includes('5）')) {
+    return 5;
   }
 
   return -1;
