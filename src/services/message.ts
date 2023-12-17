@@ -15,25 +15,40 @@ export function generateContentFromMealGroups(
   const now = new Date();
   const content: string[] = [
     `*今日（${now.getMonth() + 1}/${now.getDate()}）訂餐統計：*`,
+    `總共 \`${mealGroups
+      .filter((g) => g.mealNo !== -1)
+      .reduce((prev, current) => prev + current.count, 0)}\` 個餐`,
   ];
 
-  mealGroups.sort((a, b) => a.mealNo - b.mealNo);
+  mealGroups.sort((a, b) => (b.mealNo === -1 ? -1 : a.mealNo - b.mealNo));
+
+  const mealCountMessages: string[] = [];
+  const replyMessages: string[] = [];
+  const unknownMessages: string[] = [];
 
   mealGroups.forEach((g) => {
-    const messages: string[] = [];
-
     if (g.mealNo === -1) {
-      messages.push('*未知*');
-    } else {
-      messages.push(`*${generateMessageFromMealGroup(g)}*`);
+      unknownMessages.push(
+        ...g.replies.map((r) => `●  ${generateMessageFromReply(r)}`),
+      );
+      return;
     }
 
-    messages.push(
-      ...g.replies.map((r) => `\t\t●  ${generateMessageFromReply(r)}`),
-    );
+    mealCountMessages.push(`●  ${generateMessageFromMealGroup(g)}`);
 
-    content.push(messages.join('\n'));
+    replyMessages.push(
+      ...g.replies.map((r) => `●  ${generateMessageFromReply(r)}`),
+    );
   });
+
+  content.push(mealCountMessages.join('\n'));
+  content.push('回覆訊息：');
+  content.push(replyMessages.join('\n'));
+
+  if (unknownMessages.length) {
+    content.push('無法判斷的訊息：');
+    content.push(unknownMessages.join('\n'));
+  }
 
   return content;
 }
@@ -76,7 +91,7 @@ export function generateMessageFromMealGroup(mealGroup: MealGroup): string {
     message.push('（有特殊需求）');
   }
 
-  message.push(` x ${mealGroup.replies.length}`);
+  message.push(` \`x ${mealGroup.replies.length}\``);
 
   return message.join('');
 }
