@@ -44,15 +44,9 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
 }
 
 function analyseAppetite(message: string): boolean | undefined {
-  if (message.includes('飯少')) {
-    return true;
-  }
+  const patterns = ['飯少', '少飯', '飯一半', '半飯'];
 
-  if (message.includes('少飯')) {
-    return true;
-  }
-
-  if (message.includes('飯一半')) {
+  if (patterns.some((p) => message.includes(p))) {
     return true;
   }
 
