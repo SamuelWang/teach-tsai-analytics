@@ -6,7 +6,11 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
   const mealGroups: MealGroup[] = [];
 
   replies.forEach((reply) => {
-    const message = reply.message.replace(/<@U[A-Z0-9]+>/, '');
+    const message = reply.message
+      // filter out the user ID
+      .replace(/<@U[A-Z0-9]+>/, '')
+      // filter out the emoji
+      .replace(/:[a-zA-Z0-9_]+:/, '');
     const mealNo = analyseMealNo(message);
     const appetite = analyseAppetite(message);
     const specialRequirement = analyseSpecialRequirement(message);
