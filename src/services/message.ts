@@ -41,14 +41,14 @@ export function generateContentFromMealGroups(
     );
   });
 
-  content.push(mealCountMessages.join('\n'));
-  content.push('回覆訊息：');
-  content.push(replyMessages.join('\n'));
-
   if (unknownMessages.length) {
     content.push('無法判斷的訊息：');
     content.push(unknownMessages.join('\n'));
   }
+
+  content.push(mealCountMessages.join('\n'));
+  content.push('回覆訊息：');
+  content.push(replyMessages.join('\n'));
 
   return content;
 }
