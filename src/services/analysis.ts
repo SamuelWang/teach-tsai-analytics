@@ -100,10 +100,10 @@ function analyseRiceType(message: string): RiceType | undefined {
 }
 
 function analyseSpecialRequirement(message: string): boolean | undefined {
-  const pattern1Result = message.includes('不吃');
-  const pattern2Result = message.includes('不要');
+  const patterns = ['不吃', '不要', '勿'];
+  const hasSpecialRequirement = patterns.some((pattern) => message.includes(pattern));
 
-  if (pattern1Result || pattern2Result) {
+  if (hasSpecialRequirement) {
     return true;
   }
 
