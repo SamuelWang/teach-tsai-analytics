@@ -6,11 +6,13 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
   const mealGroups: MealGroup[] = [];
 
   replies.forEach((reply) => {
-    const message = reply.message
-      // filter out the user ID
-      .replace(/<@U[A-Z0-9]+>/, '')
-      // filter out the emoji
-      .replace(/:[a-zA-Z0-9_]+:/, '');
+    const message =
+      reply.message
+        .split('\n')?.[0]
+        // filter out the user ID
+        .replace(/<@U[A-Z0-9]+>/, '')
+        // filter out the emoji
+        .replace(/(:[a-zA-Z0-9\-_+]+:)+/, '') || '';
     const mealNo = analyseMealNo(message);
     const appetite = analyseAppetite(message);
     const specialRequirement = analyseSpecialRequirement(message);
@@ -101,7 +103,9 @@ function analyseRiceType(message: string): RiceType | undefined {
 
 function analyseSpecialRequirement(message: string): boolean | undefined {
   const patterns = ['不吃', '不要', '勿'];
-  const hasSpecialRequirement = patterns.some((pattern) => message.includes(pattern));
+  const hasSpecialRequirement = patterns.some((pattern) =>
+    message.includes(pattern),
+  );
 
   if (hasSpecialRequirement) {
     return true;
