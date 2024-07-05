@@ -9,7 +9,7 @@ A app for the order couting of the teacher-tsai channel.
 3. the env var `COUNTER_CHANNEL_ID` is the ID of the channel that this counter will post results to, replace it to the target channel ID
 4. the env var `TEACHER_TSAI_CHANNEL_ID` is the ID of the teacher tsai channel
 
-## Run App in development mode
+## Set up development mode
 
 1. `npm install`
 2. `npm run dev`
