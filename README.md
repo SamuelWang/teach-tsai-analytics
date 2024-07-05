@@ -11,4 +11,5 @@ A app for the order couting of the teacher-tsai channel.
 
 ## Run App in development mode
 
-Execute `npm run dev`
+1. `npm install`
+2. `npm run dev`
