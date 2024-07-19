@@ -2,7 +2,7 @@
   "name": "teacher-tsai-analytics",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/app.ts",
   "scripts": {
     "build": "npx tsc",
     "clean:dist": "rm -rf ./dist",
