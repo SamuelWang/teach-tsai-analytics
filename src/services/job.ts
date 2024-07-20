@@ -15,6 +15,6 @@ export function startAnalysisJob() {
     },
     null,
     true,
-    process.env.TZ,
+    process.env.TimeZone,
   );
 }
