@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 import createError from 'http-errors';
-import { startAnalysisJob } from '../services/job';
 
 dotenv.config();
 
@@ -20,6 +19,3 @@ app.use((req: Request, res: Response, next) => {
 app.listen(port, hostname, () => {
   console.log(`⚡️[server]: Server is running at http://${hostname}:${port}`);
 });
-
-// start the schedule job for the analysis
-startAnalysisJob();
