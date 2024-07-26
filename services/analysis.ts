@@ -10,9 +10,9 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
       reply.message
         .split('\n')?.[0]
         // filter out the user ID
-        .replace(/<@U[A-Z0-9]+>/, '')
+        .replace(/(<@U[A-Z0-9]+>)+/g, '')
         // filter out the emoji
-        .replace(/(:[a-zA-Z0-9\-_+]+:)+/, '') || '';
+        .replace(/(:[a-zA-Z0-9\-_+]+:)+/g, '') || '';
     const mealNo = analyseMealNo(message);
     const appetite = analyseAppetite(message);
     const specialRequirement = analyseSpecialRequirement(message);
