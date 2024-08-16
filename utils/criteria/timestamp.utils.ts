@@ -1,4 +1,4 @@
-export function getTodayUtcTimestamp(hour: number = 0) {
+export function getTodayUtcTimestamp(hour: number = 0, minute: number = 0) {
   const nowDate = new Date();
 
   return Date.UTC(
@@ -6,7 +6,7 @@ export function getTodayUtcTimestamp(hour: number = 0) {
     nowDate.getUTCMonth(),
     nowDate.getUTCDate(),
     hour,
-    0,
+    minute,
     0,
   );
 }

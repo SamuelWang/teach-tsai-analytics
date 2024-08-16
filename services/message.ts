@@ -107,7 +107,7 @@ export function generateMessageFromReply(reply: Reply): string {
 export async function getReplies(): Promise<Reply[]> {
   const historyResult = await DataAccess.Slack.Conversations.history(
     getTodayUtcTimestamp(1),
-    getTodayUtcTimestamp(3),
+    getTodayUtcTimestamp(2, 20),
   );
 
   if (!historyResult.ok || !historyResult.messages) {
