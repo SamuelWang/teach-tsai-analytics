@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 import createError from 'http-errors';
 import * as DataAccess from '../data-access';
-import { analyseReplies } from '../services/analysis';
+import { analyzeReplies } from '../services/analysis';
 import { generateContentFromMealGroups, getReplies } from '../services/message';
 import { startAnalysisJob } from '../services/job';
 
@@ -19,7 +19,7 @@ app.get('/counting/post', async (req: Request, res: Response) => {
   }
 
   const replies = await getReplies();
-  const groups = analyseReplies(replies);
+  const groups = analyzeReplies(replies);
   const content = generateContentFromMealGroups(groups);
   const channelId = process.env.COUNTER_CHANNEL_ID ?? '';
   const postResult = await DataAccess.Slack.Chat.postMessage(

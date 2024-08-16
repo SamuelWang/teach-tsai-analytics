@@ -2,7 +2,7 @@ import { RiceType } from '../enums';
 import { MealGroup } from '../models';
 import { Reply } from '../models/message';
 
-export function analyseReplies(replies: Reply[]): MealGroup[] {
+export function analyzeReplies(replies: Reply[]): MealGroup[] {
   const mealGroups: MealGroup[] = [];
 
   replies.forEach((reply) => {
@@ -13,10 +13,10 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
         .replace(/(<@U[A-Z0-9]+>)+/g, '')
         // filter out the emoji
         .replace(/(:[a-zA-Z0-9\-_+]+:)+/g, '') || '';
-    const mealNo = analyseMealNo(message);
-    const appetite = analyseAppetite(message);
-    const specialRequirement = analyseSpecialRequirement(message);
-    let riceType = analyseRiceType(message);
+    const mealNo = analyzeMealNo(message);
+    const appetite = analyzeAppetite(message);
+    const specialRequirement = analyzeSpecialRequirement(message);
+    let riceType = analyzeRiceType(message);
 
     if (riceType === undefined && [1, 2].includes(mealNo)) {
       riceType = RiceType.PurpleRice;
@@ -49,7 +49,7 @@ export function analyseReplies(replies: Reply[]): MealGroup[] {
   return mealGroups;
 }
 
-function analyseAppetite(message: string): boolean | undefined {
+function analyzeAppetite(message: string): boolean | undefined {
   const patterns = ['飯少', '少飯', '飯一半', '半飯'];
 
   if (patterns.some((p) => message.includes(p))) {
@@ -59,7 +59,7 @@ function analyseAppetite(message: string): boolean | undefined {
   return undefined;
 }
 
-function analyseMealNo(message: string): number {
+function analyzeMealNo(message: string): number {
   const matches = message.match(/[1-5]/g);
 
   if (matches && matches.length === 1) {
@@ -89,7 +89,7 @@ function analyseMealNo(message: string): number {
   return -1;
 }
 
-function analyseRiceType(message: string): RiceType | undefined {
+function analyzeRiceType(message: string): RiceType | undefined {
   if (message.includes('白飯')) {
     return RiceType.WhiteRice;
   }
@@ -101,7 +101,7 @@ function analyseRiceType(message: string): RiceType | undefined {
   return undefined;
 }
 
-function analyseSpecialRequirement(message: string): boolean | undefined {
+function analyzeSpecialRequirement(message: string): boolean | undefined {
   const patterns = ['不吃', '不要', '勿'];
   const hasSpecialRequirement = patterns.some((pattern) =>
     message.includes(pattern),

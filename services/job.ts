@@ -1,6 +1,6 @@
 import { CronJob } from 'cron';
 import * as DataAccess from '../data-access';
-import { analyseReplies } from './analysis';
+import { analyzeReplies } from './analysis';
 import { generateContentFromMealGroups, getReplies } from './message';
 
 export function startAnalysisJob() {
@@ -8,7 +8,7 @@ export function startAnalysisJob() {
     '00 20 2 * * 1-5',
     async () => {
       const replies = await getReplies();
-      const groups = analyseReplies(replies);
+      const groups = analyzeReplies(replies);
       const content = generateContentFromMealGroups(groups);
       const channelId = process.env.COUNTER_CHANNEL_ID ?? '';
       await DataAccess.Slack.Chat.postMessage(channelId, content);
