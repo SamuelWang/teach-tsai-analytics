@@ -6,6 +6,7 @@ export interface MealGroup {
   count: number;
   riceType?: RiceType;
   lessRice?: boolean;
+  moreRice?: boolean;
   specialRequirement?: boolean;
   replies: Reply[];
 }

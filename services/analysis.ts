@@ -15,6 +15,8 @@ export function analyzeReplies(replies: Reply[]): MealGroup[] {
         .replace(/(:[a-zA-Z0-9\-_+]+:)+/g, '') || '';
     const mealNo = analyzeMealNo(message);
     const appetite = analyzeAppetite(message);
+    const lessRice = appetite === -1;
+    const moreRice = appetite === 1;
     const specialRequirement = analyzeSpecialRequirement(message);
     let riceType = analyzeRiceType(message);
 
@@ -26,7 +28,8 @@ export function analyzeReplies(replies: Reply[]): MealGroup[] {
       (g) =>
         g.mealNo === mealNo &&
         g.riceType === riceType &&
-        g.lessRice === appetite &&
+        g.lessRice === lessRice &&
+        g.moreRice === moreRice &&
         g.specialRequirement === specialRequirement,
     );
 
@@ -35,7 +38,8 @@ export function analyzeReplies(replies: Reply[]): MealGroup[] {
         mealNo,
         count: 1,
         riceType,
-        lessRice: appetite,
+        lessRice,
+        moreRice,
         specialRequirement,
         replies: [{ ...reply }],
       });
@@ -49,11 +53,16 @@ export function analyzeReplies(replies: Reply[]): MealGroup[] {
   return mealGroups;
 }
 
-function analyzeAppetite(message: string): boolean | undefined {
-  const patterns = ['飯少', '少飯', '飯一半', '半飯'];
+function analyzeAppetite(message: string): number | undefined {
+  const lessPatterns = ['飯少', '少飯', '飯一半', '半飯'];
+  const morePatterns = ['飯多', '加飯'];
 
-  if (patterns.some((p) => message.includes(p))) {
-    return true;
+  if (lessPatterns.some((p) => message.includes(p))) {
+    return -1;
+  }
+
+  if (morePatterns.some((p) => message.includes(p))) {
+    return 1;
   }
 
   return undefined;

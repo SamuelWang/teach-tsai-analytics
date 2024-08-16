@@ -84,7 +84,11 @@ export function generateMessageFromMealGroup(mealGroup: MealGroup): string {
   }
 
   if (mealGroup.lessRice) {
-    message.push('（飯少）');
+    message.push('（少飯）');
+  }
+
+  if (mealGroup.moreRice) {
+    message.push('（加飯）');
   }
 
   if (mealGroup.specialRequirement) {
@@ -150,7 +154,9 @@ export async function getReplies(): Promise<Reply[]> {
 }
 
 export function filterOutValidMessages(messages: MessageElement[]) {
-  return messages.filter((m) => !m.text?.includes('今日有訂餐'));
+  return messages.filter(
+    (m) => !m.text?.includes('今日有訂餐') || !m.text?.includes('今天有訂餐'),
+  );
 }
 
 export function mapMessagesToReplies(
