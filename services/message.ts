@@ -155,7 +155,7 @@ export async function getReplies(): Promise<Reply[]> {
 
 export function filterOutValidMessages(messages: MessageElement[]) {
   return messages.filter(
-    (m) => !m.text?.includes('今日有訂餐') || !m.text?.includes('今天有訂餐'),
+    (m) => !(m.text?.includes('今日有訂餐') || m.text?.includes('今天有訂餐')),
   );
 }
 
